@@ -26,5 +26,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "firebase deploy"
+  },
+  "devDependencies": {
+    "remote-redux-devtools": "^0.5.12"
   }
 }
