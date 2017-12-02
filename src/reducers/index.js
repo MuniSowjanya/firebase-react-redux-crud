@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
+import sessionReducer from './session';
+import userReducer from './user';
 
-import auth from './auth_reducer';
-
-export default combineReducers({
-  auth
+const rootReducer = combineReducers({
+  sessionState: sessionReducer,
+  userState: userReducer,
 });
+
+export default rootReducer;
