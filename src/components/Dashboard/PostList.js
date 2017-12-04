@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button, Checkbox, Icon, Item, Table } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 
-const Postlist = ({ allPosts }) => (
+const Postlist = ({ allPosts, createPost, onDelete }) => (
   <Table celled compact definition>
     <Table.Header fullWidth>
       <Table.Row>
@@ -36,7 +37,7 @@ const Postlist = ({ allPosts }) => (
                 <Icon name='edit' />
               </Button>
               <Button icon size='medium'>
-                <Icon name='remove' color='red' />
+                <Icon name='remove' color='red' onClick={() => onDelete(post.id)} />
               </Button>
             </Button.Group>
           </Table.Cell>
@@ -48,9 +49,16 @@ const Postlist = ({ allPosts }) => (
       <Table.Row>
         <Table.HeaderCell />
         <Table.HeaderCell colSpan='4'>
-          <Button floated='right' icon labelPosition='left' primary size='small'>
-            <Icon name='write' /> Add Post
-          </Button>
+          <Link to="/create-post" color={'white'} >
+            <Button
+              floated='right'
+              icon
+              labelPosition='left'
+              primary size='small'
+            >
+                <Icon name='write' /> Add Post
+            </Button>
+          </Link>
         </Table.HeaderCell>
       </Table.Row>
     </Table.Footer>

@@ -10,28 +10,29 @@ import { db } from '../../firebase';
 import PostList from '../Dashboard/PostList';
 import posts from '../../posts.json';
 
-const fromObjectToList = (object) =>
-  object
-    ? Object.keys(object).map(key => ({ ...object[key], index: key }))
-    : [];
-
 class HomePage extends Component {
   componentDidMount() {
-    const { onSetUsers } = this.props;
 
-    db.onceGetUsers().then(snapshot =>
-      onSetUsers(fromObjectToList(snapshot.val()))
+    /* db.doGetAllPosts().then(snapshot =>
+      this.props.onGetAllPosts(map(snapshot.val(), post => post))
+    );*/
+  }
+
+  onDelete = postId => {
+    db.doDeletePost(postId).then(snapshot =>
+      this.props.onDeletePost(snapshot.val())
     );
   }
 
   render() {
-    const { users } = this.props;
-
     return (
       <Container>
         <Header as='h1' dividing textAlign='center'>Dashboard</Header>
         <section>
-          <PostList allPosts={posts}/>
+          <PostList
+            allPosts={posts}
+            onDelete={this.onDelete}
+          />
         </section>
       </Container>
     );
@@ -39,11 +40,12 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.userState.users,
+  allPosts: state.posts,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSetUsers: (users) => dispatch({ type: 'USERS_SET', users }),
+  onDeletePost: (postId) => dispatch({ type: 'POST_DELETED', postId }),
+  onGetAllPosts: (posts) => dispatch({ type: 'ALL_POSTS_GOT', posts })
 });
 
 export default compose(
