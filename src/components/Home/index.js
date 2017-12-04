@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-
+import {
+  Container,
+  Header
+} from 'semantic-ui-react';
 import withAuthorization from '../Session/withAuthorization';
 import { db } from '../../firebase';
+import PostList from '../Dashboard/PostList';
+import posts from '../../posts.json';
 
 const fromObjectToList = (object) =>
   object
@@ -23,23 +28,15 @@ class HomePage extends Component {
     const { users } = this.props;
 
     return (
-      <div>
-        <h1>Home</h1>
-        <p>The Home Page is accessible by every signed in user.</p>
-
-        { !!users.length && <UserList users={users} /> }
-      </div>
+      <Container>
+        <Header as='h1' dividing textAlign='center'>Dashboard</Header>
+        <section>
+          <PostList allPosts={posts}/>
+        </section>
+      </Container>
     );
   }
 }
-
-const UserList = ({ users }) =>
-  <div>
-    <h2>List of App User IDs (Saved on Sign Up in Firebase Database)</h2>
-    {users.map(user =>
-      <div key={user.index}>{user.index}</div>
-    )}
-  </div>
 
 const mapStateToProps = (state) => ({
   users: state.userState.users,

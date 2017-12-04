@@ -1,46 +1,47 @@
 import React from 'react'
-import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Item, Table } from 'semantic-ui-react'
 
-const TableExampleFullWidth = () => (
+const Postlist = ({ allPosts }) => (
   <Table celled compact definition>
     <Table.Header fullWidth>
       <Table.Row>
-        <Table.HeaderCell />
-        <Table.HeaderCell>Name</Table.HeaderCell>
-        <Table.HeaderCell>Registration Date</Table.HeaderCell>
-        <Table.HeaderCell>E-mail address</Table.HeaderCell>
-        <Table.HeaderCell>Premium Plan</Table.HeaderCell>
+        <Table.HeaderCell>Published</Table.HeaderCell>
+        <Table.HeaderCell>Post Details</Table.HeaderCell>
+        <Table.HeaderCell>Updated on</Table.HeaderCell>
+        <Table.HeaderCell>Actions</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
     <Table.Body>
-      <Table.Row>
-        <Table.Cell collapsing>
-          <Checkbox slider />
-        </Table.Cell>
-        <Table.Cell>John Lilki</Table.Cell>
-        <Table.Cell>September 14, 2013</Table.Cell>
-        <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-        <Table.Cell>No</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell collapsing>
-          <Checkbox slider />
-        </Table.Cell>
-        <Table.Cell>Jamie Harington</Table.Cell>
-        <Table.Cell>January 11, 2014</Table.Cell>
-        <Table.Cell>jamieharingonton@yahoo.com</Table.Cell>
-        <Table.Cell>Yes</Table.Cell>
-      </Table.Row>
-      <Table.Row>
-        <Table.Cell collapsing>
-          <Checkbox slider />
-        </Table.Cell>
-        <Table.Cell>Jill Lewis</Table.Cell>
-        <Table.Cell>May 11, 2014</Table.Cell>
-        <Table.Cell>jilsewris22@yahoo.com</Table.Cell>
-        <Table.Cell>Yes</Table.Cell>
-      </Table.Row>
+      {allPosts && allPosts.length > 0 ? allPosts.map(post => (
+        <Table.Row key={post.id}>
+          <Table.Cell collapsing>
+            <Checkbox slider checked={post.isPublished} />
+          </Table.Cell>
+          <Table.Cell collapsing>
+            <Item.Group>
+              <Item>
+                <Item.Image size='small' src={`/assets/images/${post.slug}.png`} />
+                <Item.Content>
+                  <Item.Header as='a'>{post.title}</Item.Header>
+                  <Item.Description content={post.description} />
+                </Item.Content>
+              </Item>
+            </Item.Group>
+          </Table.Cell>
+          <Table.Cell collapsing>{post.timestamp}</Table.Cell>
+          <Table.Cell collapsing>
+            <Button.Group>
+              <Button icon size='medium'>
+                <Icon name='edit' />
+              </Button>
+              <Button icon size='medium'>
+                <Icon name='remove' color='red' />
+              </Button>
+            </Button.Group>
+          </Table.Cell>
+        </Table.Row>
+      )) : null}
     </Table.Body>
 
     <Table.Footer fullWidth>
@@ -48,14 +49,12 @@ const TableExampleFullWidth = () => (
         <Table.HeaderCell />
         <Table.HeaderCell colSpan='4'>
           <Button floated='right' icon labelPosition='left' primary size='small'>
-            <Icon name='user' /> Add User
+            <Icon name='write' /> Add Post
           </Button>
-          <Button size='small'>Approve</Button>
-          <Button disabled size='small'>Approve All</Button>
         </Table.HeaderCell>
       </Table.Row>
     </Table.Footer>
   </Table>
 )
 
-export default TableExampleFullWidth
+export default Postlist;
