@@ -7,7 +7,7 @@ import {
 } from 'semantic-ui-react';
 import withAuthorization from '../Session/withAuthorization';
 import { db } from '../../firebase';
-import PostList from '../Dashboard/PostList';
+import PostList from './PostList';
 import posts from '../../posts.json';
 
 class HomePage extends Component {

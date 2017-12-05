@@ -10,15 +10,16 @@ import {
 import * as routes from '../../constants/routes';
 import { db } from '../../firebase';
 import withAuthorization from '../Session/withAuthorization';
+import PostForm from './PostForm';
 
 class CreatePostPage extends React.Component {
   state = { postContent: null };
 
-  createPost = (event, values) => {
+  onCreatePost = (event, values) => {
     event.preventDefault();
     const { history } = this.props;
     db.doCreatePost(values).then(snapshot => {
-      this.props.onCreatePost(snapshot.val());
+      this.props.actionCreatePost(snapshot.val());
       history.push(routes.HOME);
     })
   }
@@ -27,6 +28,9 @@ class CreatePostPage extends React.Component {
     return (
       <Container>
         <Header as='h1' dividing textAlign='center'>Create a new post</Header>
+        <section>
+          <PostForm onCreatePost={this.onCreatePost} />
+        </section>
       </Container>
     );
   }
@@ -37,7 +41,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCreatePost: (post) => dispatch({ type: 'POST_CREATED', post }),
+  actionCreatePost: (post) => dispatch({ type: 'POST_CREATED', post }),
 });
 
 export default compose(

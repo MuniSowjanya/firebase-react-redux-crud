@@ -89,8 +89,8 @@ class SignInForm extends Component {
               <Input
                 value={email}
                 onChange={event => this.setState(updateByPropertyName('email', event.target.value))}
-                type="text"
-                placeholder="Email Address"
+                type='text'
+                placeholder='Email Address'
               />
             </Form.Field>
             <Form.Field>
@@ -98,8 +98,8 @@ class SignInForm extends Component {
               <Input
                 value={password}
                 onChange={event => this.setState(updateByPropertyName('password', event.target.value))}
-                type="password"
-                placeholder="Password"
+                type='password'
+                placeholder='Password'
               />
             </Form.Field>
             <Button
