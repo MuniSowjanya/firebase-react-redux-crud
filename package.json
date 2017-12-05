@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "draft-js": "^0.10.4",
+    "es6-shim": "^0.35.3",
     "firebase": "^4.6.2",
     "lodash": "^4.17.4",
     "moment": "^2.19.2",

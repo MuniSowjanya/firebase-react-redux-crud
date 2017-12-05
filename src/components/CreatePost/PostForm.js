@@ -2,6 +2,8 @@ import React from 'react'
 import { Button, Dropdown, Form , Input } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
+import PostEditor from './PostEditor';
+
 export default class PostForm extends React.Component {
   state = { content: '', description: '', tags: [], title: '' }
 
@@ -31,11 +33,7 @@ export default class PostForm extends React.Component {
         </Form.Field>
         <Form.Field>
           <label>Post Body (markdown syntax)</label>
-          <Form.TextArea
-            minHeight={400}
-            onChange={this.handleChange}
-            value={content}
-          />
+          <PostEditor />
         </Form.Field>
         <Form.Field>
           <Dropdown
