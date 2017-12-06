@@ -1,15 +1,19 @@
 import React from 'react';
-import { Editor, EditorState } from 'draft-js';
+import { Grid, Segment, TextArea } from 'semantic-ui-react';
+import ReactMarkdown from 'react-markdown';
 import './PostEditor.css'
 
-export default class PostEditor extends React.Component {
-  state = { editorState: EditorState.createEmpty() };
+const PostEditor = ({ onChange, source }) => (
+  <Grid columns={2} stackable>
+    <Grid.Column>
+      <TextArea name='content' onInput={onChange} style={{ minHeight: 400 }} />
+    </Grid.Column>
+    <Grid.Column>
+      <Segment style={{ minHeight: 400 }}>
+        <ReactMarkdown source={source}  />
+      </Segment>
+    </Grid.Column>
+  </Grid>
+);
 
-  onChange = editorState => this.setState({ editorState });
-
-  render() {
-    return (
-      <Editor editorState={this.state.editorState} onChange={this.onChange} />
-    );
-  }
-}
+export default PostEditor;
